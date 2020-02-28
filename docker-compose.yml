@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  mongo_db:
+    image: mongo
+    ports:
+    - '6969:27017'
+  postgre:
+    image: postgres
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+    - ./:/gymtablesAPI
+    ports:
+    - '5000:5000'
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/gymtablesClient
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
