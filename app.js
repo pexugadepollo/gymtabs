@@ -32,7 +32,7 @@ router.route('/users/:id')
     .delete(userController.deleteUser)
     .put(userController.updateUser);
 console.log(process.env.DB_STRING);
-mongoose.connect("mongodb://blas:080601Yoyo@mongo_db:27017/gymtabs", { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true },function(err, res) {
+mongoose.connect("mongodb://@mongo_db:27017/gymtabs", { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true },function(err, res) {
     if (err) {
         console.log('Error en conexion a base de datos ' + err);
     } else {
