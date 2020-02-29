@@ -4,6 +4,10 @@ services:
     image: mongo
     ports:
     - '27017:27017'
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: blas
+      MONGO_INITDB_ROOT_PASSWORD: admin
   postgre:
     image: postgres
   api:
