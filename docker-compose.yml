@@ -7,6 +7,8 @@ services:
     restart: always
   postgre:
     image: postgres
+    ports:
+      - '5432:5432'
   api:
     build:
       context: .
