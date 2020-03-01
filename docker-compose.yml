@@ -31,8 +31,10 @@ services:
     volumes:
       - ./client:/gymtablesClient
       - /gymtablesClient/node_modules
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./conf.d:/etc/nginx/conf.d/
+      - ./dhparam:/etc/nginx/dhparam
+      - ./certbot/conf/:/etc/nginx/ssl/
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
     ports:
       - '80:80'
       - '443:443'
@@ -40,3 +42,8 @@ services:
       - NODE_ENV=development
   certbot:
     image: certbot/certbot
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email bso080601@gmail.com --agree-tos --no-eff-email -d ociofy.es
+  volumes:
+    - ./certbot/conf/:/etc/letsencrypt
+    - ./certbot/logs/:/var/log/letsencrypt
+    - ./certbot/data:/usr/share/nginx/html/letsencrypt
