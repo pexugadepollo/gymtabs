@@ -43,7 +43,7 @@ services:
   certbot:
     image: certbot/certbot
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email bso080601@gmail.com --agree-tos --no-eff-email -d ociofy.es
-  volumes:
-    - ./certbot/conf/:/etc/letsencrypt
-    - ./certbot/logs/:/var/log/letsencrypt
-    - ./certbot/data:/usr/share/nginx/html/letsencrypt
+    volumes:
+      - ./certbot/conf/:/etc/letsencrypt
+      - ./certbot/logs/:/var/log/letsencrypt
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
