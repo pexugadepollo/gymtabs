@@ -1,8 +1,13 @@
-FROM node
+FROM node:alpine as builder
 WORKDIR /gymtablesClient
 
 COPY ./package*.json ./
 RUN npm install
 COPY . .
+RUN npm run build
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /gymtablesClient/build /usr/share/nginx/html
+EXPOSE 80
 
-CMD ["npm","start"]
+CMD ["nginx","-g","daemon off;"]
