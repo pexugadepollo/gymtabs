@@ -30,7 +30,7 @@ const Main: React.FC = () => {
             .catch(err => {
                 console.log('err: ' + err);
             });
-    });
+    },[]);
     return (
         <CommonSC.MainContainer>
             <CustomAppBar/>
