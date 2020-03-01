@@ -4,9 +4,6 @@ import {Card, CardContent} from "@material-ui/core";
 export const CustomCard = styled(Card)`
     width: 80vw;
     margin-top: 20px;
-    /*
-    margin: 20px auto 0 auto;
-    */
 `;
 export const PlaySeparator = styled.div`
   display: flex;

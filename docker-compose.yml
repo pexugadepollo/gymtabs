@@ -33,6 +33,5 @@ services:
       - /gymtablesClient/node_modules
     ports:
       - '80:80'
-      - '443:443'
     environment:
       - NODE_ENV=development

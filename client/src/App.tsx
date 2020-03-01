@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Login from './pages/Login'
+import Login from './pages/Login';
+import Training from "./pages/Training";
 import {Redirect, Route, Switch} from 'react-router-dom';
 import Main from "./pages/Main";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
@@ -38,6 +39,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/Main">
                         <Main/>
+                    </Route>
+                    <Route exact path="/Train">
+                        <Training/>
                     </Route>
                 </Switch>
             </MuiThemeProvider>

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import * as SC from './style';
+import * as CommonSC from '../CommonStyles';
 import CustomAppBar from "../../components/CustomAppBar";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
@@ -15,7 +15,7 @@ const Main: React.FC = () => {
         if (localStorage.getItem('token') === null) {
             history.push('/')
         }
-        axios.get('http://localhost:5000/checkAuth', {
+        axios.get('http://ociofy.es:5000/checkAuth', {
             headers: {
                 authorization: localStorage.getItem('token')
             }
@@ -32,13 +32,13 @@ const Main: React.FC = () => {
             });
     });
     return (
-        <SC.MainContainer>
+        <CommonSC.MainContainer>
             <CustomAppBar/>
-            <SC.MainContent theme={theme}>
+            <CommonSC.MainContent theme={theme}>
                 <QuickTrainCard/>
                 <PersonalInfoTable/>
-            </SC.MainContent>
-        </SC.MainContainer>
+            </CommonSC.MainContent>
+        </CommonSC.MainContainer>
     );
 };
 
