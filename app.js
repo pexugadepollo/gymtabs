@@ -1,44 +1,32 @@
-let express = require("express"),
-    app = express(),
-    methodOverride = require("method-override");
-const PORT = process.env.PORT || 5000;
 const userController = require("./controllers/userController");
 let mongoose = require('mongoose');
-require('dotenv').config();
+const { GraphQLServer } = require('graphql-yoga');
 
-app.use(express.json());
-app.use(methodOverride());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
+let users = userController.findAllUsers;
+console.log(users());
+const resolvers = {
+    Query:{
+        user: () => users,
+    },
+  User: {
+      id: (parent) => parent.id,
+      username: (parent) => parent.username,
+      nombre: (parent) => parent.nombre,
+      apellidos: (parent) => parent.apellidos,
+      email: (parent) => parent.email,
+      peso: (parent) => parent.peso,
+      altura: (parent) => parent.altura,
+      rol: (parent) => parent.rol,
+      tabla: (parent) => parent.tabla
+
+  }
+};
+
+const server = new GraphQLServer({
+    typeDefs: './schema.graphql',
+    resolvers,
 });
 
-let router = express.Router();
-app.use(router);
+server.start(() => console.log(`Server is running on http://localhost:4000`));
 
-router.route('/auth')
-    .post(userController.getUserToken);
-router.route('/checkAuth')
-    .get(userController.checkAuth);
-router.route('/users')
-    .get(userController.findAllUsers)
-    .post(userController.addUser);
 
-router.route('/users/:id')
-    .get(userController.findById)
-    .delete(userController.deleteUser)
-    .put(userController.updateUser);
-console.log(process.env.DB_STRING);
-mongoose.connect("mongodb://mongo_db:27017/gymtabs", { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true },function(err, res) {
-    if (err) {
-        console.log('Error en conexion a base de datos ' + err);
-    } else {
-        console.log('Conectado a BD')
-    }
-});
-app.listen(PORT, function() {
-    console.log("Node server running on http://localhost:"+PORT);
-});

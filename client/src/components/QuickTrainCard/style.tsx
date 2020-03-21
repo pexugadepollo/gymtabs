@@ -1,9 +1,17 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Card, CardContent} from "@material-ui/core";
 
 export const CustomCard = styled(Card)`
     width: 80vw;
     margin-top: 20px;
+    &:hover{
+      ${props => props.theme==='light' && css`
+    `}
+    ${props => props.theme==='dark' && css`
+  background-color: darken(#424242, 20%);
+
+    `}    
+    }
 `;
 export const PlaySeparator = styled.div`
   display: flex;

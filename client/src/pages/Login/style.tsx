@@ -20,6 +20,7 @@ export const Container = styled.div/*<Props>*/`
 
 export const LoginForm = styled.form`
   color: white;
+  
   font-family: 'Roboto', sans-serif;
   background-color: ${primaryColor+"0d"};
   padding: 60px;

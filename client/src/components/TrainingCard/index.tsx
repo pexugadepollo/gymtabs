@@ -6,7 +6,7 @@ const TrainingCard:React.FC = () => {
   return(
    <SC.CustomCard variant="outlined">
         <Typography variant="h2">
-            Hola
+
         </Typography>
    </SC.CustomCard>
   );

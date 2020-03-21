@@ -1,5 +1,5 @@
 import React from "react";
-import {AppBar, createStyles, IconButton, Menu, MenuItem, Theme, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, createStyles, IconButton, Menu, MenuItem, Theme, Toolbar, Tooltip, Typography} from "@material-ui/core";
 import {Menu as MenuIcon, MoreVert as MoreVertIcon} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import CustomDrawer from "../CustomDrawer";
@@ -71,6 +71,8 @@ const CustomAppBar: React.FC = () => {
                     <Typography variant="h6" className={classes.title}>
                         Tablas
                     </Typography>
+                    <Tooltip title="Cambiar tema">
+
                     <IconButton
                         className={classes.menuButton}
                         aria-label="more"
@@ -83,6 +85,8 @@ const CustomAppBar: React.FC = () => {
                             <path d={dark ? svgDark : svgLight}/>
                         </svg>
                     </IconButton>
+                    </Tooltip>
+
                     <IconButton
                         className={classes.menuButton}
                         aria-label="more"

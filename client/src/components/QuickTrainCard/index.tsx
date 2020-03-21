@@ -6,10 +6,17 @@ import {
     WhatshotRounded as FireIcon
 } from "@material-ui/icons";
 import {Typography} from "@material-ui/core";
+import {useHistory} from "react-router-dom";
+import {useTheme} from "../../hooks/useTheme";
 
 const QuickTrain: React.FC = () => {
+    const history = useHistory();
+    const {theme} = useTheme();
+    function redir() {
+        history.push("/Train")
+    }
     return(
-        <SC.CustomCard variant="outlined">
+        <SC.CustomCard variant="outlined" theme={theme} onClick={redir}>
             <SC.CustomCardContent>
                 <SC.PlaySeparator>
                     <SC.TypoIconContainer>

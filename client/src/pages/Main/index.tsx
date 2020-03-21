@@ -15,7 +15,7 @@ const Main: React.FC = () => {
         if (localStorage.getItem('token') === null) {
             history.push('/')
         }
-        axios.get('http://ociofy.es:5000/checkAuth', {
+        axios.get('http://localhost:5000/checkAuth', {
             headers: {
                 authorization: localStorage.getItem('token')
             }

@@ -9,7 +9,7 @@ const Login: React.FC = () => {
     const history = useHistory();
     function checkToken(){
         // axios.get('https://infinite-depths-35170.herokuapp.com/checkAuth')
-        axios.get('http://ociofy.es:5000/checkAuth', {headers: {
+        axios.get('http://api:5000/checkAuth', {headers: {
                 authorization: localStorage.getItem('token')
             }})
             .then(res => {
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
     function hadleSubmit(e:any) {
         e.preventDefault();
         // axios.get('https://infinite-depths-35170.herokuapp.com/auth')
-        axios.post('http://ociofy.es:5000/auth', {
+        axios.post('http://api:5000/auth', {
             username: formData.username,
             pass: formData.password
         })
