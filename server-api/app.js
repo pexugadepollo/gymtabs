@@ -1,31 +1,35 @@
-const userController = require("./src/controllers/userController");
-let mongoose = require('mongoose');
-const { GraphQLServer } = require('graphql-yoga');
-
-let users = userController.findAllUsers;
+const { prisma } = require('./generated/prisma-client')
+const { GraphQLServer } = require('graphql-yoga')
 const resolvers = {
-    Query:{
-        user: () => users,
+    Query: {
+        allUsers(root, args, context) {
+            return context.prisma.users()
+        },
+        user(root, args, context) {
+            return context.prisma.user({ id: args.userID })
+        },
     },
-  User: {
-      id: (parent) => parent.id,
-      username: (parent) => parent.username,
-      nombre: (parent) => parent.nombre,
-      apellidos: (parent) => parent.apellidos,
-      email: (parent) => parent.email,
-      peso: (parent) => parent.peso,
-      altura: (parent) => parent.altura,
-      rol: (parent) => parent.rol,
-      tabla: (parent) => parent.tabla
-
-  }
-};
-
+    Mutation: {
+        createUser(root, args, context) {
+            return context.prisma.createUser({
+                username: args.username,
+                password: args.password,
+                nombre: args.nombre,
+                apellidos: args.apellidos,
+                email: args.email,
+                peso: args.peso,
+                rol: args.rol,
+                altura: args.altura
+            })
+        },
+    },
+}
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',
     resolvers,
-});
+    context: {
+        prisma,
+    },
+})
 
-server.start(() => console.log(`Server is running on http://localhost:4000`));
-
-
+server.start(() => console.log('Server is running on http://localhost:4000'))
