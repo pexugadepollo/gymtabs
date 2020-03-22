@@ -1,0 +1,12 @@
+type User {
+  id: ID! @id
+  username: String!
+  password: String!
+  nombre: String!
+  apellidos: String!
+  email: String!
+  peso: Float!
+  altura: Int!
+  rol: String!
+  tabla: [String] @scalarList(strategy: RELATION)
+}
