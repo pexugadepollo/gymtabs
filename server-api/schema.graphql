@@ -9,11 +9,15 @@ type User {
     rol: String!
     tabla: [Int]
 }
+type AuthPayload {
+    token: String!
+}
 type Query{
     user(userID: ID!): User!
     allUsers: [User!]!
 }
 type Mutation{
-    createUser(id: String!, username: String!, nombre: String!, apellidos: String!, email: String!, peso: Float!, altura: Int!, rol: String!, tabla: [Int]): User
+    createUser(id: String!, username: String!, nombre: String!, apellidos: String!, email: String!, peso: Float!, altura: Int!, rol: String!, tabla: [Int]): User!
+    login(username: String!, password: String!): AuthPayload!
 
 }
