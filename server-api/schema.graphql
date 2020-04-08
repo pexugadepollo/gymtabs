@@ -9,15 +9,43 @@ type User {
     rol: String!
     tabla: [Int]
 }
+
+type Ejercicio {
+    id: String!
+    nombre: String!
+    descripcion: String!
+    musculo: String!
+    imagen: String!
+    video: String!
+    series: Int!
+    repeticiones: String!
+}
+
+
 type AuthPayload {
     token: String!
+}
+type Auth {
+    user: User!
+    valid: Boolean!
 }
 type Query{
     user(userID: ID!): User!
     allUsers: [User!]!
+    allEjercicios: [Ejercicio!]!
+    ejercicio(ejercicioID: ID!):Ejercicio!
 }
 type Mutation{
     createUser(id: String!, username: String!, nombre: String!, apellidos: String!, email: String!, peso: Float!, altura: Int!, rol: String!, tabla: [Int]): User!
-    login(username: String!, password: String!): AuthPayload!
-
+    checkToken(token: String!):Auth!
+    getToken(username: String!,password: String!): AuthPayload!
+    createEjercicio(
+        nombre: String!,
+        descripcion: String!,
+        musculo: String!,
+        imagen: String!,
+        video: String!,
+        series: Int!,
+        repeticiones: String!
+    ):Ejercicio!
 }

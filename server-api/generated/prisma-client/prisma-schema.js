@@ -3,7 +3,15 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateEjercicio {
+  count: Int!
+}
+
+type AggregatePropsUnicas {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -11,9 +19,227 @@ type BatchPayload {
   count: Long!
 }
 
+type Ejercicio {
+  id: ID!
+  nombre: String!
+  descripcion: String!
+  musculo: String!
+  imagen: String!
+  video: String!
+}
+
+type EjercicioConnection {
+  pageInfo: PageInfo!
+  edges: [EjercicioEdge]!
+  aggregate: AggregateEjercicio!
+}
+
+input EjercicioCreateInput {
+  id: ID
+  nombre: String!
+  descripcion: String!
+  musculo: String!
+  imagen: String!
+  video: String!
+}
+
+input EjercicioCreateOneInput {
+  create: EjercicioCreateInput
+  connect: EjercicioWhereUniqueInput
+}
+
+type EjercicioEdge {
+  node: Ejercicio!
+  cursor: String!
+}
+
+enum EjercicioOrderByInput {
+  id_ASC
+  id_DESC
+  nombre_ASC
+  nombre_DESC
+  descripcion_ASC
+  descripcion_DESC
+  musculo_ASC
+  musculo_DESC
+  imagen_ASC
+  imagen_DESC
+  video_ASC
+  video_DESC
+}
+
+type EjercicioPreviousValues {
+  id: ID!
+  nombre: String!
+  descripcion: String!
+  musculo: String!
+  imagen: String!
+  video: String!
+}
+
+type EjercicioSubscriptionPayload {
+  mutation: MutationType!
+  node: Ejercicio
+  updatedFields: [String!]
+  previousValues: EjercicioPreviousValues
+}
+
+input EjercicioSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EjercicioWhereInput
+  AND: [EjercicioSubscriptionWhereInput!]
+  OR: [EjercicioSubscriptionWhereInput!]
+  NOT: [EjercicioSubscriptionWhereInput!]
+}
+
+input EjercicioUpdateDataInput {
+  nombre: String
+  descripcion: String
+  musculo: String
+  imagen: String
+  video: String
+}
+
+input EjercicioUpdateInput {
+  nombre: String
+  descripcion: String
+  musculo: String
+  imagen: String
+  video: String
+}
+
+input EjercicioUpdateManyMutationInput {
+  nombre: String
+  descripcion: String
+  musculo: String
+  imagen: String
+  video: String
+}
+
+input EjercicioUpdateOneRequiredInput {
+  create: EjercicioCreateInput
+  update: EjercicioUpdateDataInput
+  upsert: EjercicioUpsertNestedInput
+  connect: EjercicioWhereUniqueInput
+}
+
+input EjercicioUpsertNestedInput {
+  update: EjercicioUpdateDataInput!
+  create: EjercicioCreateInput!
+}
+
+input EjercicioWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nombre: String
+  nombre_not: String
+  nombre_in: [String!]
+  nombre_not_in: [String!]
+  nombre_lt: String
+  nombre_lte: String
+  nombre_gt: String
+  nombre_gte: String
+  nombre_contains: String
+  nombre_not_contains: String
+  nombre_starts_with: String
+  nombre_not_starts_with: String
+  nombre_ends_with: String
+  nombre_not_ends_with: String
+  descripcion: String
+  descripcion_not: String
+  descripcion_in: [String!]
+  descripcion_not_in: [String!]
+  descripcion_lt: String
+  descripcion_lte: String
+  descripcion_gt: String
+  descripcion_gte: String
+  descripcion_contains: String
+  descripcion_not_contains: String
+  descripcion_starts_with: String
+  descripcion_not_starts_with: String
+  descripcion_ends_with: String
+  descripcion_not_ends_with: String
+  musculo: String
+  musculo_not: String
+  musculo_in: [String!]
+  musculo_not_in: [String!]
+  musculo_lt: String
+  musculo_lte: String
+  musculo_gt: String
+  musculo_gte: String
+  musculo_contains: String
+  musculo_not_contains: String
+  musculo_starts_with: String
+  musculo_not_starts_with: String
+  musculo_ends_with: String
+  musculo_not_ends_with: String
+  imagen: String
+  imagen_not: String
+  imagen_in: [String!]
+  imagen_not_in: [String!]
+  imagen_lt: String
+  imagen_lte: String
+  imagen_gt: String
+  imagen_gte: String
+  imagen_contains: String
+  imagen_not_contains: String
+  imagen_starts_with: String
+  imagen_not_starts_with: String
+  imagen_ends_with: String
+  imagen_not_ends_with: String
+  video: String
+  video_not: String
+  video_in: [String!]
+  video_not_in: [String!]
+  video_lt: String
+  video_lte: String
+  video_gt: String
+  video_gte: String
+  video_contains: String
+  video_not_contains: String
+  video_starts_with: String
+  video_not_starts_with: String
+  video_ends_with: String
+  video_not_ends_with: String
+  AND: [EjercicioWhereInput!]
+  OR: [EjercicioWhereInput!]
+  NOT: [EjercicioWhereInput!]
+}
+
+input EjercicioWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createEjercicio(data: EjercicioCreateInput!): Ejercicio!
+  updateEjercicio(data: EjercicioUpdateInput!, where: EjercicioWhereUniqueInput!): Ejercicio
+  updateManyEjercicios(data: EjercicioUpdateManyMutationInput!, where: EjercicioWhereInput): BatchPayload!
+  upsertEjercicio(where: EjercicioWhereUniqueInput!, create: EjercicioCreateInput!, update: EjercicioUpdateInput!): Ejercicio!
+  deleteEjercicio(where: EjercicioWhereUniqueInput!): Ejercicio
+  deleteManyEjercicios(where: EjercicioWhereInput): BatchPayload!
+  createPropsUnicas(data: PropsUnicasCreateInput!): PropsUnicas!
+  updatePropsUnicas(data: PropsUnicasUpdateInput!, where: PropsUnicasWhereUniqueInput!): PropsUnicas
+  updateManyPropsUnicases(data: PropsUnicasUpdateManyMutationInput!, where: PropsUnicasWhereInput): BatchPayload!
+  upsertPropsUnicas(where: PropsUnicasWhereUniqueInput!, create: PropsUnicasCreateInput!, update: PropsUnicasUpdateInput!): PropsUnicas!
+  deletePropsUnicas(where: PropsUnicasWhereUniqueInput!): PropsUnicas
+  deleteManyPropsUnicases(where: PropsUnicasWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -39,7 +265,133 @@ type PageInfo {
   endCursor: String
 }
 
+type PropsUnicas {
+  id: ID!
+  ejercicio: Ejercicio!
+  user: User!
+  repeticiones: String!
+  series: Int!
+}
+
+type PropsUnicasConnection {
+  pageInfo: PageInfo!
+  edges: [PropsUnicasEdge]!
+  aggregate: AggregatePropsUnicas!
+}
+
+input PropsUnicasCreateInput {
+  id: ID
+  ejercicio: EjercicioCreateOneInput!
+  user: UserCreateOneInput!
+  repeticiones: String!
+  series: Int!
+}
+
+type PropsUnicasEdge {
+  node: PropsUnicas!
+  cursor: String!
+}
+
+enum PropsUnicasOrderByInput {
+  id_ASC
+  id_DESC
+  repeticiones_ASC
+  repeticiones_DESC
+  series_ASC
+  series_DESC
+}
+
+type PropsUnicasPreviousValues {
+  id: ID!
+  repeticiones: String!
+  series: Int!
+}
+
+type PropsUnicasSubscriptionPayload {
+  mutation: MutationType!
+  node: PropsUnicas
+  updatedFields: [String!]
+  previousValues: PropsUnicasPreviousValues
+}
+
+input PropsUnicasSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PropsUnicasWhereInput
+  AND: [PropsUnicasSubscriptionWhereInput!]
+  OR: [PropsUnicasSubscriptionWhereInput!]
+  NOT: [PropsUnicasSubscriptionWhereInput!]
+}
+
+input PropsUnicasUpdateInput {
+  ejercicio: EjercicioUpdateOneRequiredInput
+  user: UserUpdateOneRequiredInput
+  repeticiones: String
+  series: Int
+}
+
+input PropsUnicasUpdateManyMutationInput {
+  repeticiones: String
+  series: Int
+}
+
+input PropsUnicasWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  ejercicio: EjercicioWhereInput
+  user: UserWhereInput
+  repeticiones: String
+  repeticiones_not: String
+  repeticiones_in: [String!]
+  repeticiones_not_in: [String!]
+  repeticiones_lt: String
+  repeticiones_lte: String
+  repeticiones_gt: String
+  repeticiones_gte: String
+  repeticiones_contains: String
+  repeticiones_not_contains: String
+  repeticiones_starts_with: String
+  repeticiones_not_starts_with: String
+  repeticiones_ends_with: String
+  repeticiones_not_ends_with: String
+  series: Int
+  series_not: Int
+  series_in: [Int!]
+  series_not_in: [Int!]
+  series_lt: Int
+  series_lte: Int
+  series_gt: Int
+  series_gte: Int
+  AND: [PropsUnicasWhereInput!]
+  OR: [PropsUnicasWhereInput!]
+  NOT: [PropsUnicasWhereInput!]
+}
+
+input PropsUnicasWhereUniqueInput {
+  id: ID
+}
+
 type Query {
+  ejercicio(where: EjercicioWhereUniqueInput!): Ejercicio
+  ejercicios(where: EjercicioWhereInput, orderBy: EjercicioOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Ejercicio]!
+  ejerciciosConnection(where: EjercicioWhereInput, orderBy: EjercicioOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EjercicioConnection!
+  propsUnicas(where: PropsUnicasWhereUniqueInput!): PropsUnicas
+  propsUnicases(where: PropsUnicasWhereInput, orderBy: PropsUnicasOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropsUnicas]!
+  propsUnicasesConnection(where: PropsUnicasWhereInput, orderBy: PropsUnicasOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropsUnicasConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -47,6 +399,8 @@ type Query {
 }
 
 type Subscription {
+  ejercicio(where: EjercicioSubscriptionWhereInput): EjercicioSubscriptionPayload
+  propsUnicas(where: PropsUnicasSubscriptionWhereInput): PropsUnicasSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -80,6 +434,11 @@ input UserCreateInput {
   altura: Int!
   rol: String!
   tabla: UserCreatetablaInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatetablaInput {
@@ -143,6 +502,18 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  username: String
+  password: String
+  nombre: String
+  apellidos: String
+  email: String
+  peso: Float
+  altura: Int
+  rol: String
+  tabla: UserUpdatetablaInput
+}
+
 input UserUpdateInput {
   username: String
   password: String
@@ -167,8 +538,20 @@ input UserUpdateManyMutationInput {
   tabla: UserUpdatetablaInput
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdatetablaInput {
   set: [String!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

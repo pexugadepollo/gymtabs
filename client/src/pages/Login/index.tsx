@@ -2,51 +2,62 @@ import React, {useEffect, useState} from "react";
 import * as SC from './style'
 import {TextField, Button} from "@material-ui/core";
 import {Link, useHistory} from 'react-router-dom';
-import axios from 'axios';
+import  { gql } from 'apollo-boost';
+import {useMutation} from '@apollo/react-hooks';
+const GET_TOKEN = gql`
+    mutation GetToken($username: String!,$password: String!){
+        getToken(
+        username: $username,
+        password: $password
+        )
+    {
+        token
+    }
+    }
+`
+const CHECK_TOKEN = gql`
+    mutation CheckToken($token: String!){
+        checkToken(
+            token: $token
+        ){
+            valid
+        }
+    }
+`
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({username: '', password: ''});
     const history = useHistory();
-    function checkToken(){
-        // axios.get('https://infinite-depths-35170.herokuapp.com/checkAuth')
-        axios.get('http://api:5000/checkAuth', {headers: {
-                authorization: localStorage.getItem('token')
-            }})
-            .then(res => {
-                if (res.data.authorized){
-                    history.push('/Main')
-                }
-            })
-            .catch(err => {
-                console.log('err: ' + err);
-            });
-    }
+    const [getToken] = useMutation(GET_TOKEN, {onCompleted: data => {localStorage.setItem("token", data.getToken.token);history.push("/Main")}});
+    const [checkToken] = useMutation(CHECK_TOKEN, {onCompleted: data => {
+        if (data.checkToken.valid){
+            history.push("/Main")
+        }
+    }});
     useEffect(() => {
-        /*        (() => {
-
-                })();*/
-        checkToken();
+        try {
+            if (localStorage.getItem("token")) {
+                checkToken({variables: {token: localStorage.getItem("token")}})
+            }
+        }catch (e) {
+            console.log(e)
+        }
     }, [checkToken]);
 
-    function hadleSubmit(e:any) {
+     function hadleSubmit(e:any) {
         e.preventDefault();
-        // axios.get('https://infinite-depths-35170.herokuapp.com/auth')
-        axios.post('http://api:5000/auth', {
-            username: formData.username,
-            pass: formData.password
-        })
-            .then(res => {
-                console.log(res.data);
-                    localStorage.setItem('token', res.data);
-                    checkToken();
+        try {
+            getToken({variables: {username: formData.username, password: formData.password}})
 
-            })
-            .catch(err => {
+        }catch (e) {
+            console.log(e)
+        }
 
-            });
+
     }
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setFormData({...formData,[event.target.name]: event.target.value})
+
     }
     return (
             <SC.Container>

@@ -11,6 +11,12 @@ const resolvers = {
         user(root, args, context) {
             return context.prisma.user({id: args.userID})
         },
+        allEjercicios(root, args, context){
+            return context.prisma.ejercicios()
+        },
+        ejercicio(root, args, context){
+            return context.prisma.ejercicio({id: args.ejercicioID})
+        }
     },
     Mutation: {
         createUser(root, args, context) {
@@ -24,7 +30,36 @@ const resolvers = {
                 altura: args.altura
             })
         },
-        async login(root, args, context) {
+        checkToken(root, args, context){
+            let valid = false;
+            let userex = {};
+            let token = args.token;
+            if(!token){
+                throw new Error("Es necesario el token de autenticación");
+            }
+            jwt.verify(token, 'pr<~%SuT:~bV8G8[u5q_!vF-a,v5~as39>uW7~j;p=Hh`4K[ScD4fh>2vA9B.3NP=4ER5~+', function(err, user) {
+                if (err) {
+                    throw new Error('Token inválido');
+                }else{
+                    userex=user;
+                    valid=true
+                }
+            })
+            console.log(userex)
+            return {
+                valid: valid,
+                user: {
+                    username: userex.username,
+                    nombre: userex.nombre,
+                    apellidos: userex.apellidos,
+                    email: userex.email,
+                    peso: userex.peso,
+                    altura: userex.altura,
+                    rol: userex.rol
+                }
+            }
+        },
+        async getToken(root, args, context) {
             let token;
             const usernam = args.username;
             const pass = await crypto
@@ -41,6 +76,8 @@ const resolvers = {
             }
             const data = {
                 username: user.username,
+                nombre: user.nombre,
+                apellidos: user.apellidos,
                 rol: user.rol,
                 altura: user.altura,
                 peso: user.peso,
@@ -51,7 +88,7 @@ const resolvers = {
             token = jwt.sign(data, 'pr<~%SuT:~bV8G8[u5q_!vF-a,v5~as39>uW7~j;p=Hh`4K[ScD4fh>2vA9B.3NP=4ER5~+', {
                 expiresIn: 60 * 60 * 24 * 7 // 7 días
             });
-            return {token: token};
+            return {token: token}
 
         }
     },

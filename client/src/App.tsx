@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Login from './pages/Login';
 import Training from "./pages/Training";
+import HomeCoach from "./pages/CoachDashboard/Home"
 import {Redirect, Route, Switch} from 'react-router-dom';
 import Main from "./pages/Main";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
@@ -42,6 +43,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/Train">
                         <Training/>
+                    </Route>
+                    <Route exact path="/CoachDashboard/Home">
+                        <HomeCoach/>
                     </Route>
                 </Switch>
             </MuiThemeProvider>

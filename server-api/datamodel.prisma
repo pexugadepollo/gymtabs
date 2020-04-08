@@ -10,3 +10,19 @@ type User {
   rol: String!
   tabla: [String] @scalarList(strategy: RELATION)
 }
+type Ejercicio {
+  id: ID! @id
+  nombre: String!
+  descripcion: String!
+  musculo: String!
+  imagen: String!
+  video: String!
+}
+
+type PropsUnicas{
+  id: ID! @id
+  ejercicio: Ejercicio! @relation(link: TABLE, name: "EjercicioRel")
+  user: User! @relation(link: TABLE, name: "UsuarioRel")
+  repeticiones: String!
+  series: Int!
+}

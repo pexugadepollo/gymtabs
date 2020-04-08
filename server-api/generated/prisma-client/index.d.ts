@@ -16,6 +16,8 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  ejercicio: (where?: EjercicioWhereInput) => Promise<boolean>;
+  propsUnicas: (where?: PropsUnicasWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -38,6 +40,46 @@ export interface Prisma {
    * Queries
    */
 
+  ejercicio: (where: EjercicioWhereUniqueInput) => EjercicioNullablePromise;
+  ejercicios: (args?: {
+    where?: EjercicioWhereInput;
+    orderBy?: EjercicioOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Ejercicio>;
+  ejerciciosConnection: (args?: {
+    where?: EjercicioWhereInput;
+    orderBy?: EjercicioOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => EjercicioConnectionPromise;
+  propsUnicas: (
+    where: PropsUnicasWhereUniqueInput
+  ) => PropsUnicasNullablePromise;
+  propsUnicases: (args?: {
+    where?: PropsUnicasWhereInput;
+    orderBy?: PropsUnicasOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<PropsUnicas>;
+  propsUnicasesConnection: (args?: {
+    where?: PropsUnicasWhereInput;
+    orderBy?: PropsUnicasOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PropsUnicasConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -63,6 +105,40 @@ export interface Prisma {
    * Mutations
    */
 
+  createEjercicio: (data: EjercicioCreateInput) => EjercicioPromise;
+  updateEjercicio: (args: {
+    data: EjercicioUpdateInput;
+    where: EjercicioWhereUniqueInput;
+  }) => EjercicioPromise;
+  updateManyEjercicios: (args: {
+    data: EjercicioUpdateManyMutationInput;
+    where?: EjercicioWhereInput;
+  }) => BatchPayloadPromise;
+  upsertEjercicio: (args: {
+    where: EjercicioWhereUniqueInput;
+    create: EjercicioCreateInput;
+    update: EjercicioUpdateInput;
+  }) => EjercicioPromise;
+  deleteEjercicio: (where: EjercicioWhereUniqueInput) => EjercicioPromise;
+  deleteManyEjercicios: (where?: EjercicioWhereInput) => BatchPayloadPromise;
+  createPropsUnicas: (data: PropsUnicasCreateInput) => PropsUnicasPromise;
+  updatePropsUnicas: (args: {
+    data: PropsUnicasUpdateInput;
+    where: PropsUnicasWhereUniqueInput;
+  }) => PropsUnicasPromise;
+  updateManyPropsUnicases: (args: {
+    data: PropsUnicasUpdateManyMutationInput;
+    where?: PropsUnicasWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPropsUnicas: (args: {
+    where: PropsUnicasWhereUniqueInput;
+    create: PropsUnicasCreateInput;
+    update: PropsUnicasUpdateInput;
+  }) => PropsUnicasPromise;
+  deletePropsUnicas: (where: PropsUnicasWhereUniqueInput) => PropsUnicasPromise;
+  deleteManyPropsUnicases: (
+    where?: PropsUnicasWhereInput
+  ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -88,6 +164,12 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  ejercicio: (
+    where?: EjercicioSubscriptionWhereInput
+  ) => EjercicioSubscriptionPayloadSubscription;
+  propsUnicas: (
+    where?: PropsUnicasSubscriptionWhereInput
+  ) => PropsUnicasSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -100,6 +182,28 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type EjercicioOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "nombre_ASC"
+  | "nombre_DESC"
+  | "descripcion_ASC"
+  | "descripcion_DESC"
+  | "musculo_ASC"
+  | "musculo_DESC"
+  | "imagen_ASC"
+  | "imagen_DESC"
+  | "video_ASC"
+  | "video_DESC";
+
+export type PropsUnicasOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "repeticiones_ASC"
+  | "repeticiones_DESC"
+  | "series_ASC"
+  | "series_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -123,10 +227,147 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type EjercicioWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  username?: Maybe<String>;
 }>;
+
+export interface EjercicioWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  nombre?: Maybe<String>;
+  nombre_not?: Maybe<String>;
+  nombre_in?: Maybe<String[] | String>;
+  nombre_not_in?: Maybe<String[] | String>;
+  nombre_lt?: Maybe<String>;
+  nombre_lte?: Maybe<String>;
+  nombre_gt?: Maybe<String>;
+  nombre_gte?: Maybe<String>;
+  nombre_contains?: Maybe<String>;
+  nombre_not_contains?: Maybe<String>;
+  nombre_starts_with?: Maybe<String>;
+  nombre_not_starts_with?: Maybe<String>;
+  nombre_ends_with?: Maybe<String>;
+  nombre_not_ends_with?: Maybe<String>;
+  descripcion?: Maybe<String>;
+  descripcion_not?: Maybe<String>;
+  descripcion_in?: Maybe<String[] | String>;
+  descripcion_not_in?: Maybe<String[] | String>;
+  descripcion_lt?: Maybe<String>;
+  descripcion_lte?: Maybe<String>;
+  descripcion_gt?: Maybe<String>;
+  descripcion_gte?: Maybe<String>;
+  descripcion_contains?: Maybe<String>;
+  descripcion_not_contains?: Maybe<String>;
+  descripcion_starts_with?: Maybe<String>;
+  descripcion_not_starts_with?: Maybe<String>;
+  descripcion_ends_with?: Maybe<String>;
+  descripcion_not_ends_with?: Maybe<String>;
+  musculo?: Maybe<String>;
+  musculo_not?: Maybe<String>;
+  musculo_in?: Maybe<String[] | String>;
+  musculo_not_in?: Maybe<String[] | String>;
+  musculo_lt?: Maybe<String>;
+  musculo_lte?: Maybe<String>;
+  musculo_gt?: Maybe<String>;
+  musculo_gte?: Maybe<String>;
+  musculo_contains?: Maybe<String>;
+  musculo_not_contains?: Maybe<String>;
+  musculo_starts_with?: Maybe<String>;
+  musculo_not_starts_with?: Maybe<String>;
+  musculo_ends_with?: Maybe<String>;
+  musculo_not_ends_with?: Maybe<String>;
+  imagen?: Maybe<String>;
+  imagen_not?: Maybe<String>;
+  imagen_in?: Maybe<String[] | String>;
+  imagen_not_in?: Maybe<String[] | String>;
+  imagen_lt?: Maybe<String>;
+  imagen_lte?: Maybe<String>;
+  imagen_gt?: Maybe<String>;
+  imagen_gte?: Maybe<String>;
+  imagen_contains?: Maybe<String>;
+  imagen_not_contains?: Maybe<String>;
+  imagen_starts_with?: Maybe<String>;
+  imagen_not_starts_with?: Maybe<String>;
+  imagen_ends_with?: Maybe<String>;
+  imagen_not_ends_with?: Maybe<String>;
+  video?: Maybe<String>;
+  video_not?: Maybe<String>;
+  video_in?: Maybe<String[] | String>;
+  video_not_in?: Maybe<String[] | String>;
+  video_lt?: Maybe<String>;
+  video_lte?: Maybe<String>;
+  video_gt?: Maybe<String>;
+  video_gte?: Maybe<String>;
+  video_contains?: Maybe<String>;
+  video_not_contains?: Maybe<String>;
+  video_starts_with?: Maybe<String>;
+  video_not_starts_with?: Maybe<String>;
+  video_ends_with?: Maybe<String>;
+  video_not_ends_with?: Maybe<String>;
+  AND?: Maybe<EjercicioWhereInput[] | EjercicioWhereInput>;
+  OR?: Maybe<EjercicioWhereInput[] | EjercicioWhereInput>;
+  NOT?: Maybe<EjercicioWhereInput[] | EjercicioWhereInput>;
+}
+
+export type PropsUnicasWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface PropsUnicasWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  ejercicio?: Maybe<EjercicioWhereInput>;
+  user?: Maybe<UserWhereInput>;
+  repeticiones?: Maybe<String>;
+  repeticiones_not?: Maybe<String>;
+  repeticiones_in?: Maybe<String[] | String>;
+  repeticiones_not_in?: Maybe<String[] | String>;
+  repeticiones_lt?: Maybe<String>;
+  repeticiones_lte?: Maybe<String>;
+  repeticiones_gt?: Maybe<String>;
+  repeticiones_gte?: Maybe<String>;
+  repeticiones_contains?: Maybe<String>;
+  repeticiones_not_contains?: Maybe<String>;
+  repeticiones_starts_with?: Maybe<String>;
+  repeticiones_not_starts_with?: Maybe<String>;
+  repeticiones_ends_with?: Maybe<String>;
+  repeticiones_not_ends_with?: Maybe<String>;
+  series?: Maybe<Int>;
+  series_not?: Maybe<Int>;
+  series_in?: Maybe<Int[] | Int>;
+  series_not_in?: Maybe<Int[] | Int>;
+  series_lt?: Maybe<Int>;
+  series_lte?: Maybe<Int>;
+  series_gt?: Maybe<Int>;
+  series_gte?: Maybe<Int>;
+  AND?: Maybe<PropsUnicasWhereInput[] | PropsUnicasWhereInput>;
+  OR?: Maybe<PropsUnicasWhereInput[] | PropsUnicasWhereInput>;
+  NOT?: Maybe<PropsUnicasWhereInput[] | PropsUnicasWhereInput>;
+}
 
 export interface UserWhereInput {
   id?: Maybe<ID_Input>;
@@ -248,6 +489,54 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  username?: Maybe<String>;
+}>;
+
+export interface EjercicioCreateInput {
+  id?: Maybe<ID_Input>;
+  nombre: String;
+  descripcion: String;
+  musculo: String;
+  imagen: String;
+  video: String;
+}
+
+export interface EjercicioUpdateInput {
+  nombre?: Maybe<String>;
+  descripcion?: Maybe<String>;
+  musculo?: Maybe<String>;
+  imagen?: Maybe<String>;
+  video?: Maybe<String>;
+}
+
+export interface EjercicioUpdateManyMutationInput {
+  nombre?: Maybe<String>;
+  descripcion?: Maybe<String>;
+  musculo?: Maybe<String>;
+  imagen?: Maybe<String>;
+  video?: Maybe<String>;
+}
+
+export interface PropsUnicasCreateInput {
+  id?: Maybe<ID_Input>;
+  ejercicio: EjercicioCreateOneInput;
+  user: UserCreateOneInput;
+  repeticiones: String;
+  series: Int;
+}
+
+export interface EjercicioCreateOneInput {
+  create?: Maybe<EjercicioCreateInput>;
+  connect?: Maybe<EjercicioWhereUniqueInput>;
+}
+
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   username: String;
@@ -265,7 +554,41 @@ export interface UserCreatetablaInput {
   set?: Maybe<String[] | String>;
 }
 
-export interface UserUpdateInput {
+export interface PropsUnicasUpdateInput {
+  ejercicio?: Maybe<EjercicioUpdateOneRequiredInput>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+  repeticiones?: Maybe<String>;
+  series?: Maybe<Int>;
+}
+
+export interface EjercicioUpdateOneRequiredInput {
+  create?: Maybe<EjercicioCreateInput>;
+  update?: Maybe<EjercicioUpdateDataInput>;
+  upsert?: Maybe<EjercicioUpsertNestedInput>;
+  connect?: Maybe<EjercicioWhereUniqueInput>;
+}
+
+export interface EjercicioUpdateDataInput {
+  nombre?: Maybe<String>;
+  descripcion?: Maybe<String>;
+  musculo?: Maybe<String>;
+  imagen?: Maybe<String>;
+  video?: Maybe<String>;
+}
+
+export interface EjercicioUpsertNestedInput {
+  update: EjercicioUpdateDataInput;
+  create: EjercicioCreateInput;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateDataInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
   nombre?: Maybe<String>;
@@ -281,6 +604,28 @@ export interface UserUpdatetablaInput {
   set?: Maybe<String[] | String>;
 }
 
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface PropsUnicasUpdateManyMutationInput {
+  repeticiones?: Maybe<String>;
+  series?: Maybe<Int>;
+}
+
+export interface UserUpdateInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  nombre?: Maybe<String>;
+  apellidos?: Maybe<String>;
+  email?: Maybe<String>;
+  peso?: Maybe<Float>;
+  altura?: Maybe<Int>;
+  rol?: Maybe<String>;
+  tabla?: Maybe<UserUpdatetablaInput>;
+}
+
 export interface UserUpdateManyMutationInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
@@ -291,6 +636,40 @@ export interface UserUpdateManyMutationInput {
   altura?: Maybe<Int>;
   rol?: Maybe<String>;
   tabla?: Maybe<UserUpdatetablaInput>;
+}
+
+export interface EjercicioSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<EjercicioWhereInput>;
+  AND?: Maybe<
+    EjercicioSubscriptionWhereInput[] | EjercicioSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    EjercicioSubscriptionWhereInput[] | EjercicioSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    EjercicioSubscriptionWhereInput[] | EjercicioSubscriptionWhereInput
+  >;
+}
+
+export interface PropsUnicasSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<PropsUnicasWhereInput>;
+  AND?: Maybe<
+    PropsUnicasSubscriptionWhereInput[] | PropsUnicasSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    PropsUnicasSubscriptionWhereInput[] | PropsUnicasSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    PropsUnicasSubscriptionWhereInput[] | PropsUnicasSubscriptionWhereInput
+  >;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -306,6 +685,159 @@ export interface UserSubscriptionWhereInput {
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface Ejercicio {
+  id: ID_Output;
+  nombre: String;
+  descripcion: String;
+  musculo: String;
+  imagen: String;
+  video: String;
+}
+
+export interface EjercicioPromise extends Promise<Ejercicio>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  nombre: () => Promise<String>;
+  descripcion: () => Promise<String>;
+  musculo: () => Promise<String>;
+  imagen: () => Promise<String>;
+  video: () => Promise<String>;
+}
+
+export interface EjercicioSubscription
+  extends Promise<AsyncIterator<Ejercicio>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  nombre: () => Promise<AsyncIterator<String>>;
+  descripcion: () => Promise<AsyncIterator<String>>;
+  musculo: () => Promise<AsyncIterator<String>>;
+  imagen: () => Promise<AsyncIterator<String>>;
+  video: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EjercicioNullablePromise
+  extends Promise<Ejercicio | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  nombre: () => Promise<String>;
+  descripcion: () => Promise<String>;
+  musculo: () => Promise<String>;
+  imagen: () => Promise<String>;
+  video: () => Promise<String>;
+}
+
+export interface EjercicioConnection {
+  pageInfo: PageInfo;
+  edges: EjercicioEdge[];
+}
+
+export interface EjercicioConnectionPromise
+  extends Promise<EjercicioConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EjercicioEdge>>() => T;
+  aggregate: <T = AggregateEjercicioPromise>() => T;
+}
+
+export interface EjercicioConnectionSubscription
+  extends Promise<AsyncIterator<EjercicioConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EjercicioEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEjercicioSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EjercicioEdge {
+  node: Ejercicio;
+  cursor: String;
+}
+
+export interface EjercicioEdgePromise
+  extends Promise<EjercicioEdge>,
+    Fragmentable {
+  node: <T = EjercicioPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EjercicioEdgeSubscription
+  extends Promise<AsyncIterator<EjercicioEdge>>,
+    Fragmentable {
+  node: <T = EjercicioSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateEjercicio {
+  count: Int;
+}
+
+export interface AggregateEjercicioPromise
+  extends Promise<AggregateEjercicio>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEjercicioSubscription
+  extends Promise<AsyncIterator<AggregateEjercicio>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PropsUnicas {
+  id: ID_Output;
+  repeticiones: String;
+  series: Int;
+}
+
+export interface PropsUnicasPromise extends Promise<PropsUnicas>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  ejercicio: <T = EjercicioPromise>() => T;
+  user: <T = UserPromise>() => T;
+  repeticiones: () => Promise<String>;
+  series: () => Promise<Int>;
+}
+
+export interface PropsUnicasSubscription
+  extends Promise<AsyncIterator<PropsUnicas>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  ejercicio: <T = EjercicioSubscription>() => T;
+  user: <T = UserSubscription>() => T;
+  repeticiones: () => Promise<AsyncIterator<String>>;
+  series: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PropsUnicasNullablePromise
+  extends Promise<PropsUnicas | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  ejercicio: <T = EjercicioPromise>() => T;
+  user: <T = UserPromise>() => T;
+  repeticiones: () => Promise<String>;
+  series: () => Promise<Int>;
 }
 
 export interface User {
@@ -364,6 +896,62 @@ export interface UserNullablePromise
   tabla: () => Promise<String[]>;
 }
 
+export interface PropsUnicasConnection {
+  pageInfo: PageInfo;
+  edges: PropsUnicasEdge[];
+}
+
+export interface PropsUnicasConnectionPromise
+  extends Promise<PropsUnicasConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PropsUnicasEdge>>() => T;
+  aggregate: <T = AggregatePropsUnicasPromise>() => T;
+}
+
+export interface PropsUnicasConnectionSubscription
+  extends Promise<AsyncIterator<PropsUnicasConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PropsUnicasEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePropsUnicasSubscription>() => T;
+}
+
+export interface PropsUnicasEdge {
+  node: PropsUnicas;
+  cursor: String;
+}
+
+export interface PropsUnicasEdgePromise
+  extends Promise<PropsUnicasEdge>,
+    Fragmentable {
+  node: <T = PropsUnicasPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PropsUnicasEdgeSubscription
+  extends Promise<AsyncIterator<PropsUnicasEdge>>,
+    Fragmentable {
+  node: <T = PropsUnicasSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatePropsUnicas {
+  count: Int;
+}
+
+export interface AggregatePropsUnicasPromise
+  extends Promise<AggregatePropsUnicas>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePropsUnicasSubscription
+  extends Promise<AsyncIterator<AggregatePropsUnicas>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface UserConnection {
   pageInfo: PageInfo;
   edges: UserEdge[];
@@ -383,29 +971,6 @@ export interface UserConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
   aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -455,6 +1020,109 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface EjercicioSubscriptionPayload {
+  mutation: MutationType;
+  node: Ejercicio;
+  updatedFields: String[];
+  previousValues: EjercicioPreviousValues;
+}
+
+export interface EjercicioSubscriptionPayloadPromise
+  extends Promise<EjercicioSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = EjercicioPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EjercicioPreviousValuesPromise>() => T;
+}
+
+export interface EjercicioSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<EjercicioSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EjercicioSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EjercicioPreviousValuesSubscription>() => T;
+}
+
+export interface EjercicioPreviousValues {
+  id: ID_Output;
+  nombre: String;
+  descripcion: String;
+  musculo: String;
+  imagen: String;
+  video: String;
+}
+
+export interface EjercicioPreviousValuesPromise
+  extends Promise<EjercicioPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  nombre: () => Promise<String>;
+  descripcion: () => Promise<String>;
+  musculo: () => Promise<String>;
+  imagen: () => Promise<String>;
+  video: () => Promise<String>;
+}
+
+export interface EjercicioPreviousValuesSubscription
+  extends Promise<AsyncIterator<EjercicioPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  nombre: () => Promise<AsyncIterator<String>>;
+  descripcion: () => Promise<AsyncIterator<String>>;
+  musculo: () => Promise<AsyncIterator<String>>;
+  imagen: () => Promise<AsyncIterator<String>>;
+  video: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PropsUnicasSubscriptionPayload {
+  mutation: MutationType;
+  node: PropsUnicas;
+  updatedFields: String[];
+  previousValues: PropsUnicasPreviousValues;
+}
+
+export interface PropsUnicasSubscriptionPayloadPromise
+  extends Promise<PropsUnicasSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PropsUnicasPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PropsUnicasPreviousValuesPromise>() => T;
+}
+
+export interface PropsUnicasSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PropsUnicasSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PropsUnicasSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PropsUnicasPreviousValuesSubscription>() => T;
+}
+
+export interface PropsUnicasPreviousValues {
+  id: ID_Output;
+  repeticiones: String;
+  series: Int;
+}
+
+export interface PropsUnicasPreviousValuesPromise
+  extends Promise<PropsUnicasPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  repeticiones: () => Promise<String>;
+  series: () => Promise<Int>;
+}
+
+export interface PropsUnicasPreviousValuesSubscription
+  extends Promise<AsyncIterator<PropsUnicasPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  repeticiones: () => Promise<AsyncIterator<String>>;
+  series: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -537,11 +1205,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
-*/
-export type Float = number;
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
@@ -550,6 +1213,11 @@ export type Int = number;
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
 
 export type Long = string;
 
@@ -560,6 +1228,14 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Ejercicio",
+    embedded: false
+  },
+  {
+    name: "PropsUnicas",
     embedded: false
   }
 ];

@@ -5,6 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import CustomDrawer from "../CustomDrawer";
 import {useTheme} from "../../hooks/useTheme";
 import {useDrawer} from "../../hooks/useDrawer";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,6 +29,7 @@ const options = [
 const ITEM_HEIGHT = 48;
 const CustomAppBar: React.FC = () => {
     const { setTheme } = useTheme();
+    const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const {openDrawer, setOpenDrawer} = useDrawer();
     const [dark, setDark] = React.useState(true);
@@ -47,7 +49,9 @@ const CustomAppBar: React.FC = () => {
     };
 
     function handleLogout() {
-        localStorage.clear();
+        localStorage.removeItem("token");
+        history.push("/Login")
+
     }
     function handleThemeButton(){
 
