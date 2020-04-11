@@ -6,6 +6,7 @@ import CustomDrawer from "../CustomDrawer";
 import {useTheme} from "../../hooks/useTheme";
 import {useDrawer} from "../../hooks/useDrawer";
 import {useHistory} from "react-router-dom";
+import {useRole} from "../../hooks/useRole";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,14 +21,20 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-const options = [
-    'Perfil',
-    'Consola de entrenador',
-    'Cerrar Sesión',
-];
+
 
 const ITEM_HEIGHT = 48;
 const CustomAppBar: React.FC = () => {
+    const { admin } = useRole();
+
+    const options = admin ? [
+        'Perfil',
+        'Consola de entrenador',
+        'Cerrar Sesión',
+    ] : [
+        'Perfil',
+        'Cerrar Sesión',
+    ];
     const { setTheme } = useTheme();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -44,6 +51,10 @@ const CustomAppBar: React.FC = () => {
         switch (option) {
             case 'Cerrar Sesión':
                 handleLogout();
+                break;
+            case 'Consola de entrenador':
+                history.push("/CoachDashboard")
+                break;
         }
         setAnchorEl(null);
     };
@@ -64,7 +75,7 @@ const CustomAppBar: React.FC = () => {
     }
     return (
         <div>
-            <AppBar position="static" elevation={dark?0:10} style={{
+            <AppBar position="static" elevation={dark?0:10} color={dark ? "default":"primary"} style={{
                 transition:"all 500ms ease-in-out",
                 borderBottom: dark?"1px solid #5f6368":"none"
             }}>

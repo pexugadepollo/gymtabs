@@ -45,7 +45,6 @@ const resolvers = {
                     valid=true
                 }
             })
-            console.log(userex)
             return {
                 valid: valid,
                 user: {
@@ -90,8 +89,28 @@ const resolvers = {
             });
             return {token: token}
 
+        },
+        updateUser(root, args, context){
+            console.log(args.data)
+            return context.prisma.updateUser(
+                {
+                    where: {id: args.id},
+                    data: {
+                        username: args.username,
+                        nombre: args.nombre,
+                        apellidos: args.apellidos,
+                        email: args.email,
+                        peso: args.peso,
+                        altura: args.altura,
+                        rol: args.rol,
+                        tabla: args.tabla
+                    }
+
+                }
+            )
         }
     },
+
 }
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',

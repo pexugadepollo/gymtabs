@@ -8,6 +8,7 @@ import {ThemeProvider} from "./context/Theme";
 import {DrawerProvider} from "./context/Drawer";
 import { ApolloProvider } from '@apollo/react-hooks';
 import  ApolloClient from 'apollo-boost';
+import {RoleProvider} from "./context/Role";
 
 
 const client = new ApolloClient({
@@ -15,13 +16,15 @@ const client = new ApolloClient({
 });
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <DrawerProvider>
-            <ThemeProvider>
-                <Router>
-                    <App/>
-                </Router>
-            </ThemeProvider>
-        </DrawerProvider>
+        <RoleProvider>
+            <DrawerProvider>
+                <ThemeProvider>
+                    <Router>
+                        <App/>
+                    </Router>
+                </ThemeProvider>
+            </DrawerProvider>
+        </RoleProvider>
     </ApolloProvider>
     , document.getElementById('root'));
 

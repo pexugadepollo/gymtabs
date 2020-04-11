@@ -1,5 +1,5 @@
 import React from "react";
-import { TableBody, TableCell, TableRow, Paper} from "@material-ui/core";
+import {Paper, TableBody, TableCell, TableContainer, TableRow} from "@material-ui/core";
 import * as SC from './style';
 type PersonalInfoCardProps = {
     nombre: string,
@@ -21,7 +21,7 @@ const PersonalInfoTable: React.FC<PersonalInfoCardProps> = ({nombre, apellidos,p
         createData('Ultimo Entrenamiento', 'Ayer')
     ];
     return(
-        <SC.CustomTableContainer component={Paper}>
+        <TableContainer style={{marginTop: "15px", width: "80vw"}} component={Paper}>
             <SC.CustomTable>
                 <TableBody>
                     {rows.map(row=>(
@@ -36,7 +36,7 @@ const PersonalInfoTable: React.FC<PersonalInfoCardProps> = ({nombre, apellidos,p
                     ))}
                 </TableBody>
             </SC.CustomTable>
-        </SC.CustomTableContainer>
+        </TableContainer>
     )
 };
 

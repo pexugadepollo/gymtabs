@@ -2,22 +2,18 @@ import React from 'react';
 import './App.css';
 import Login from './pages/Login';
 import Training from "./pages/Training";
-import HomeCoach from "./pages/CoachDashboard/Home"
+import HomeCoach from "./pages/CoachDashboard"
 import {Redirect, Route, Switch} from 'react-router-dom';
 import Main from "./pages/Main";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {MuiThemeProvider} from "@material-ui/core";
 import {useTheme} from "./hooks/useTheme";
+import {DashboardProvider} from "./context/Dashboard";
 
 const themeDark = createMuiTheme({
     palette: {
         type: "dark",
-        primary: {
-            main: '#121212',
-        },
-        secondary: {
-            main: '#5f6368',
-        },
+
     }
 });
 const themeLight = createMuiTheme({
@@ -44,8 +40,10 @@ const App: React.FC = () => {
                     <Route exact path="/Train">
                         <Training/>
                     </Route>
-                    <Route exact path="/CoachDashboard/Home">
-                        <HomeCoach/>
+                    <Route exact path="/CoachDashboard">
+                        <DashboardProvider>
+                            <HomeCoach/>
+                        </DashboardProvider>
                     </Route>
                 </Switch>
             </MuiThemeProvider>

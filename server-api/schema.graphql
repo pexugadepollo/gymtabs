@@ -29,6 +29,7 @@ type Auth {
     user: User!
     valid: Boolean!
 }
+
 type Query{
     user(userID: ID!): User!
     allUsers: [User!]!
@@ -48,4 +49,15 @@ type Mutation{
         series: Int!,
         repeticiones: String!
     ):Ejercicio!
+    updateUser(
+        id: String!,
+        username: String,
+        nombre: String,
+        apellidos: String,
+        email: String,
+        peso: Float,
+        altura: Int,
+        rol: String,
+        tabla: [Int]
+    ):User
 }
