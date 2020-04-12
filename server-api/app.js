@@ -21,13 +21,15 @@ const resolvers = {
     Mutation: {
         createUser(root, args, context) {
             return context.prisma.createUser({
-                username: args.username,
-                nombre: args.nombre,
-                apellidos: args.apellidos,
-                email: args.email,
-                peso: args.peso,
-                rol: args.rol,
-                altura: args.altura
+                    username: args.username,
+                    nombre: args.nombre,
+                    apellidos: args.apellidos,
+                    email: args.email,
+                    peso: parseFloat(args.peso),
+                    rol: args.rol,
+                    altura: parseInt(args.altura),
+                    tabla: {set: [""]},
+                    password: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
             })
         },
         checkToken(root, args, context){
@@ -91,7 +93,6 @@ const resolvers = {
 
         },
         updateUser(root, args, context){
-            console.log(args.data)
             return context.prisma.updateUser(
                 {
                     where: {id: args.id},
@@ -107,6 +108,11 @@ const resolvers = {
                     }
 
                 }
+            )
+        },
+        deleteUser(root, args, context){
+            return context.prisma.deleteUser(
+                {id: args.id}
             )
         }
     },

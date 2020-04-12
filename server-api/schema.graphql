@@ -7,7 +7,7 @@ type User {
     peso: Float!
     altura: Int!
     rol: String!
-    tabla: [Int]
+    tabla: [String]
 }
 
 type Ejercicio {
@@ -37,7 +37,7 @@ type Query{
     ejercicio(ejercicioID: ID!):Ejercicio!
 }
 type Mutation{
-    createUser(id: String!, username: String!, nombre: String!, apellidos: String!, email: String!, peso: Float!, altura: Int!, rol: String!, tabla: [Int]): User!
+    createUser(id: String, username: String!, nombre: String!, apellidos: String!, email: String!, peso: String!, altura: String!, rol: String!, tabla: [String]): User!
     checkToken(token: String!):Auth!
     getToken(username: String!,password: String!): AuthPayload!
     createEjercicio(
@@ -58,6 +58,7 @@ type Mutation{
         peso: Float,
         altura: Int,
         rol: String,
-        tabla: [Int]
-    ):User
+        tabla: [String]
+    ):User!
+    deleteUser(id: String!):User!
 }

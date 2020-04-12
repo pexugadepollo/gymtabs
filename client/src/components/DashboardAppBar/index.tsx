@@ -2,6 +2,7 @@ import React from "react";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {AppBar, Tab, Tabs} from "@material-ui/core";
 import AppBarTab from "../AppBarTab";
+import {useTheme} from "../../hooks/useTheme";
 
 function a11yProps(index: any) {
     return {
@@ -10,13 +11,6 @@ function a11yProps(index: any) {
     };
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
 class tab {
     label:string;
     icon:React.ReactElement;
@@ -33,6 +27,14 @@ interface DashboardAppProps {
 }
 
 const DashboardAppBar:React.FC<DashboardAppProps> = ({ tabs}) => {
+    const {theme} = useTheme();
+    const useStyles = makeStyles((themes: Theme) => ({
+        root: {
+            flexGrow: 1,
+            width: '100%',
+            backgroundColor: theme==='dark'?'#000':themes.palette.background.default,
+        },
+    }));
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
