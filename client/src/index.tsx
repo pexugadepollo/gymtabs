@@ -12,7 +12,7 @@ import {RoleProvider} from "./context/Role";
 
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://api:4000',
 });
 ReactDOM.render(
     <ApolloProvider client={client}>
